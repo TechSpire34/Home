@@ -1,14 +1,76 @@
-/**
- *	ZYAN - Personal Portfolio Templete (HTML)
- *	Author: codeefly
- *	Author URL: http://themeforest.net/user/codeefly
- *	Copyright © ZYAN by codeefly. All Rights Reserved.
- **/
+const menuItems = [
+    { name: "Home", link: "index.html" },
+    { name: "About Me", link: "about_me.html" },
+    { name: "Services", link: "services.html" },
+    { name: "Projects", link: "Projects_list.html" },
+    { name: "Contact", link: "contact.html" },
+];
 
-        // Disable right-click on the entire document
-document.addEventListener('contextmenu', function (e) {
-    e.preventDefault(); // Prevents the context menu from appearing
+// Create the custom menu dynamically
+const customMenu = document.createElement('ul');
+customMenu.id = 'custom-menu';
+
+menuItems.forEach((item) => {
+    const li = document.createElement('li');
+    li.textContent = item.name;
+    li.onclick = () => {
+        window.location.href = item.link;
+    };
+    customMenu.appendChild(li);
 });
+
+// Add the custom menu to the document body
+document.body.appendChild(customMenu);
+
+// Handle right-click to show the custom menu
+document.addEventListener('contextmenu', (event) => {
+    event.preventDefault();
+
+    // Calculate menu position with an added 2mm offset
+    const offset = 2; // offset in mm
+    const menuWidth = customMenu.offsetWidth;
+    const menuHeight = customMenu.offsetHeight;
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
+
+    // Use clientX, clientY to get mouse position relative to the viewport
+    let mouseX = event.clientX + offset;
+    let mouseY = event.clientY + offset;
+
+    // Check if the mouse is near the bottom of the visible screen
+    if (mouseY + menuHeight > windowHeight) {
+        mouseY = event.clientY - menuHeight - offset; // Position menu above the pointer
+    }
+
+    // Check if the mouse is near the right side of the visible screen
+    if (mouseX + menuWidth > windowWidth) {
+        mouseX = event.clientX - menuWidth - offset; // Position menu to the left of the pointer
+    }
+
+    // Ensure the menu doesn't overflow on the left or top (keeping it in view)
+    if (mouseX < 0) {
+        mouseX = offset; // Keep it within the left edge
+    }
+    if (mouseY < 0) {
+        mouseY = offset; // Keep it within the top edge
+    }
+
+    // Adjust menu position considering the scroll position
+    const scrollX = window.scrollX;
+    const scrollY = window.scrollY;
+
+    customMenu.style.top = `${mouseY + scrollY}px`;
+    customMenu.style.left = `${mouseX + scrollX}px`;
+    customMenu.style.display = 'block';
+});
+
+// Hide the menu when clicking anywhere else on the document
+document.addEventListener('click', () => {
+    customMenu.style.display = 'none';
+});
+
+
+//main program starts here
  document.addEventListener('DOMContentLoaded', function() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
