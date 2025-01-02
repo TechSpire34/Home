@@ -4036,3 +4036,87 @@ h5.preloader-text::after {
     min-height: 150px; /* Adjust as needed */
 }
 
+/*Right click window*/
+
+/* Custom Context Menu */
+#custom-menu {
+    display: none;
+    position: absolute;
+    background: #262626; /* Dark background */
+    border-radius: 10px; /* Slightly smaller rounded corners */
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3); /* Deeper shadow for depth */
+    z-index: 1000;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 200px; /* Reduced width */
+    overflow: hidden;
+    animation: fadeIn 0.4s ease-out, slideIn 0.4s ease-out; /* Added slide-in effect */
+}
+
+#custom-menu li {
+    padding: 8px 12px; /* Reduced padding */
+    cursor: pointer;
+    padding-left: 30px;
+    color: #fcf6f6;
+    font-family: Arial, sans-serif;
+    font-size: 14px; /* Smaller text */
+    text-align: left;
+    position: relative; /* To enable pseudo-elements */
+    transition: all 0.4s ease; /* Smooth hover and transform effects */
+}
+
+#custom-menu li:hover {
+    background-color: #444444; /* Slightly darker gray on hover */
+    color: #ffffff; /* Bright text on hover */
+    transform: translateX(8px); /* Slightly less move effect on hover */
+    box-shadow: inset 5px 0 0 #55e6a5; /* Highlight left border on hover */
+}
+
+/* Add a gradient hover effect */
+#custom-menu li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px; /* Smaller left border */
+    background: linear-gradient(45deg, #55e6a5, #55e6a5);
+    transform: scaleY(0);
+    transition: transform 0.3s ease-in-out;
+}
+
+#custom-menu li:hover::before {
+    transform: scaleY(1); /* Highlight bar appears on hover */
+}
+
+/* Responsive Behavior */
+@media screen and (max-width: 600px) {
+    #custom-menu {
+        width: 140px; /* Adjust menu size further for smaller screens */
+    }
+
+    #custom-menu li {
+        font-size: 12px; /* Smaller text on smaller screens */
+        padding: 8px 12px;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-10px); /* Reduced slide-in distance */
+    }
+    to {
+        transform: translateY(0);
+    }
+}
