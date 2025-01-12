@@ -69,7 +69,16 @@ document.addEventListener('click', () => {
     customMenu.style.display = 'none';
 });
 
-
+document.addEventListener('keydown', (e) => {
+    if (
+      e.key === 'F12' || 
+      (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+      (e.ctrlKey && e.key === 'U')
+    ) {
+      e.preventDefault();
+    }
+  });
+  
 //main program starts here
  document.addEventListener('DOMContentLoaded', function() {
     const observer = new IntersectionObserver((entries) => {
